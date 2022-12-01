@@ -108,6 +108,7 @@ public class Level : MonoBehaviour
             if (isToTheRightOfBird && pipe.GetXPosition() <= BIRD_X_POSITION && pipe.IsBottom())
             {
                 pipesPassedCount++;
+                SoundManager.BirdScoreSound();
             }
             if (pipe.GetXPosition() < PIPE_DESTROY_X_POSITION)
             {

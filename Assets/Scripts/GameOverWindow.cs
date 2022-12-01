@@ -6,18 +6,25 @@ using CodeMonkey.Utils;
 
 public class GameOverWindow : MonoBehaviour
 {
-    private Text scoreText;
+    public Text scoreText;
+    public Text retryBtn;
+    public Text MainMenuBtn;
+    public GameObject gameObject;
     private void Awake()
     {
-        scoreText = transform.Find("scoreText").GetComponent<Text>();
-        
-        transform.Find("retryBtn").GetComponent<Button_UI>().ClickFunc = () => { UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene"); };
+        scoreText = scoreText.GetComponent<Text>();
+
+        retryBtn.GetComponent<Button_UI>().ClickFunc = () => { UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene"); };
+ 
+        MainMenuBtn.GetComponent<Button_UI>().ClickFunc = () => { UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu"); };
+        SoundManager.ButtonClickSound();
         Hide();
     }
 
     private void Start()
     {
         Bird.GetInstance().OnDied += Bird_OnDied;
+        
     }
 
     private void Bird_OnDied(object sender, System.EventArgs e)
@@ -25,7 +32,6 @@ public class GameOverWindow : MonoBehaviour
         scoreText.text = Level.GetInstance().GetPipesPassedCount().ToString();
         Show();
     }
-
     private void Hide()
     {
         gameObject.SetActive(false);
